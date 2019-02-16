@@ -22,15 +22,16 @@ initMap = () => {
         scrollWheelZoom: false
       });
       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
-        mapboxToken: '<your MAPBOX API KEY HERE>',
+        mapboxToken: 'pk.eyJ1IjoibHVjYXNmZWxpcGVjZG0iLCJhIjoiY2pzMml0OWswMjVmejQzbm1qZTVudDRwYSJ9.A7bw9WTiJiToe0jtOczdwg',
         maxZoom: 18,
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-          '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        id: 'mapbox.streets'    
+        attribution: 'Map data &copy; <a tabindex="-1" href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        '<a tabindex="-1" href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a tabindex="-1" href="https://www.mapbox.com/">Mapbox</a>',
+      id: 'mapbox.streets'    
       }).addTo(newMap);
       fillBreadcrumb();
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
+      setTabindexToMap();
     }
   });
 }  
@@ -87,7 +88,8 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   address.innerHTML = restaurant.address;
 
   const image = document.getElementById('restaurant-img');
-  image.className = 'restaurant-img'
+  image.className = 'restaurant-img';  
+  image.alt = `Image of ${restaurant.name} restaurant`;
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
 
   const cuisine = document.getElementById('restaurant-cuisine');
@@ -148,15 +150,20 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
  */
 createReviewHTML = (review) => {
   const li = document.createElement('li');
+
+  const header = document.createElement('div');
+  li.appendChild(header);
+
   const name = document.createElement('p');
   name.innerHTML = review.name;
-  li.appendChild(name);
+  header.appendChild(name);
 
   const date = document.createElement('p');
   date.innerHTML = review.date;
-  li.appendChild(date);
+  header.appendChild(date);
 
   const rating = document.createElement('p');
+  rating.classList = 'ratingP';
   rating.innerHTML = `Rating: ${review.rating}`;
   li.appendChild(rating);
 
@@ -192,3 +199,20 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+
+setTabindexToMap = (markersMap, zoomMap, mapAll) => {
+  markersMap = document.querySelectorAll('.leaflet-marker-icon');
+  zoomMap = document.querySelectorAll('.leaflet-control-zoom a');
+  mapAll = document.querySelector('#map');
+
+  mapAll.setAttribute('tabindex','-1');
+  
+  markersMap.forEach(markerOnMap => {
+    markerOnMap.setAttribute('tabindex','-1');
+  });
+
+  zoomMap.forEach(zoomBtn => {
+    zoomBtn.setAttribute('tabindex','-1');
+  });
+};

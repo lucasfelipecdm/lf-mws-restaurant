@@ -1,33 +1,23 @@
-# Mobile Web Specialist Certification Course
----
-#### _Three Stage Course Material Project - Restaurant Reviews_
+# LF Restaurant Review Project
 
-## Project Overview: Stage 1
+## Description
 
-For the **Restaurant Reviews** projects, you will incrementally convert a static webpage to a mobile-ready web application. In **Stage One**, you will take a static design that lacks accessibility and convert the design to be responsive on different sized displays and accessible for screen reader use. You will also add a service worker to begin the process of creating a seamless offline experience for your users.
+This website restaurant review is the third project of front-end advanced web developer nanodegree.
 
-### Specification
+## Instructions
 
-You have been provided the code for a restaurant reviews website. The code has a lot of issues. It’s barely usable on a desktop browser, much less a mobile device. It also doesn’t include any standard accessibility features, and it doesn’t work offline at all. Your job is to update the code to resolve these issues while still maintaining the included functionality.
+To access this website restaurant reviwe, you just need download this repo, extract the .zip file, and open the cmd/bash cmd execute `python -V` to check if you have python already install in your computer or check the version of python, if the version is python 2.x, spin up the server with `python -m SimpleHTTPServer 8000` for Python 3.x, you can use `python3 -m http.server 8000`. If you don't have Python installed, navigate to Python's [website](https://www.python.org/) to download and install the software.
 
-### Project Rubric
+Then you can access the website visit the site: `http://localhost:8000` in any browser you have installed, but for a better experience try use the most actually browsers.
 
-Your project will be evaluated by a Udacity code reviewer according to the [Restaurant Reviews project rubric](https://review.udacity.com/#!/rubrics/1090/view). Please review for detailed project requirements. The rubric should be a resource you refer to periodically to make sure your project meets specifications.
+Or you just need to click [here](https://lucasfelipecdm.github.io/lf-mws-restaurant) and visit the live website.
 
-### What do I do from here?
+## Test the accessibility and progressive web app feature
 
-1. In this folder, start up a simple HTTP server to serve up the site files on your local computer. Python has some simple tools to do this, and you don't even need to know Python. For most people, it's already installed on your computer.
+* After load this website one first time in your browser, the server worker save all assets in cache and you can visit the website after even you are offline.
 
-    * In a terminal, check the version of Python you have: `python -V`. If you have Python 2.x, spin up the server with `python -m SimpleHTTPServer 8000` (or some other port, if port 8000 is already in use.) For Python 3.x, you can use `python3 -m http.server 8000`. If you don't have Python installed, navigate to Python's [website](https://www.python.org/) to download and install the software.
-   * Note -  For Windows systems, Python 3.x is installed as `python` by default. To start a Python 3.x server, you can simply enter `python -m http.server 8000`.
-2. With your server running, visit the site: `http://localhost:8000`, and look around for a bit to see what the current experience looks like.
-3. Explore the provided code, and start making a plan to implement the required features in three areas: responsive design, accessibility and offline use.
-4. Write code to implement the updates to get this site on its way to being a mobile-ready website.
+* The site is responsive to any type of devices screen.
 
-## Leaflet.js and Mapbox:
+* The website has the focus control adjusted for screen readers, all the elements have semantic tags aplicated or a ARIA roles, also all images have a alt tag to describe the image.
 
-This repository uses [leafletjs](https://leafletjs.com/) with [Mapbox](https://www.mapbox.com/). You need to replace `<your MAPBOX API KEY HERE>` with a token from [Mapbox](https://www.mapbox.com/). Mapbox is free to use, and does not require any payment information.
-
-### Note about ES6
-
-Most of the code in this project has been written to the ES6 JavaScript specification for compatibility with modern web browsers and future-proofing JavaScript code. As much as possible, try to maintain use of ES6 in any additional JavaScript you write.
+Thanks for your attention. C:

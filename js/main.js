@@ -5,6 +5,19 @@ var newMap
 var markers = []
 
 /**
+ * Setting and register the service worker to use the cache API
+ */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('../sw_cache_site.js')
+      .then()
+      .catch(err => console.log(`Service Worker: Error: ${err}`));
+  })
+}
+
+
+/**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -35,6 +48,7 @@ fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
   neighborhoods.forEach(neighborhood => {
     const option = document.createElement('option');
     option.innerHTML = neighborhood;
+    option.label = neighborhood;
     option.value = neighborhood;
     select.append(option);
   });
@@ -62,7 +76,8 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
 
   cuisines.forEach(cuisine => {
     const option = document.createElement('option');
-    option.innerHTML = cuisine;
+    option.innerHTML = cuisine;    
+    option.label = cuisine;
     option.value = cuisine;
     select.append(option);
   });
@@ -78,11 +93,11 @@ initMap = () => {
         scrollWheelZoom: false
       });
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
-    mapboxToken: '<your MAPBOX API KEY HERE>',
+    mapboxToken: 'pk.eyJ1IjoibHVjYXNmZWxpcGVjZG0iLCJhIjoiY2pzMml0OWswMjVmejQzbm1qZTVudDRwYSJ9.A7bw9WTiJiToe0jtOczdwg',
     maxZoom: 18,
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    attribution: 'Map data &copy; <a tabindex="-1" href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+      '<a tabindex="-1" href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a tabindex="-1" href="https://www.mapbox.com/">Mapbox</a>',
     id: 'mapbox.streets'
   }).addTo(newMap);
 
@@ -161,6 +176,7 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.alt = `Image of ${restaurant.name} restaurant`;
   li.append(image);
 
   const name = document.createElement('h1');
@@ -176,6 +192,7 @@ createRestaurantHTML = (restaurant) => {
   li.append(address);
 
   const more = document.createElement('a');
+  more.setAttribute('role','button');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more)
@@ -194,10 +211,28 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     function onClick() {
       window.location.href = marker.options.url;
     }
-    self.markers.push(marker);
+    self.markers.push(marker);    
+    setTabindexToMap();
   });
 
 } 
+
+setTabindexToMap = (markersMap, zoomMap, mapAll) => {
+  markersMap = document.querySelectorAll('.leaflet-marker-icon');
+  zoomMap = document.querySelectorAll('.leaflet-control-zoom a');
+  mapAll = document.querySelector('#map');
+
+  mapAll.setAttribute('tabindex','-1');
+  
+  markersMap.forEach(markerOnMap => {
+    markerOnMap.setAttribute('tabindex','-1');
+  });
+
+  zoomMap.forEach(zoomBtn => {
+    zoomBtn.setAttribute('tabindex','-1');
+  });
+};
+
 /* addMarkersToMap = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map
