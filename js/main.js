@@ -179,7 +179,7 @@ createRestaurantHTML = (restaurant) => {
   image.alt = `Image of ${restaurant.name} restaurant`;
   li.append(image);
 
-  const name = document.createElement('h1');
+  const name = document.createElement('h2');
   name.innerHTML = restaurant.name;
   li.append(name);
 
@@ -217,16 +217,11 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 
 } 
 
-setTabindexToMap = (markersMap, zoomMap, mapAll) => {
-  markersMap = document.querySelectorAll('.leaflet-marker-icon');
+setTabindexToMap = (zoomMap, mapAll) => {
   zoomMap = document.querySelectorAll('.leaflet-control-zoom a');
   mapAll = document.querySelector('#map');
 
   mapAll.setAttribute('tabindex','-1');
-  
-  markersMap.forEach(markerOnMap => {
-    markerOnMap.setAttribute('tabindex','-1');
-  });
 
   zoomMap.forEach(zoomBtn => {
     zoomBtn.setAttribute('tabindex','-1');
